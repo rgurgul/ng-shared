@@ -3,10 +3,9 @@ import { ItemModel } from './services.types';
 /**
  * State
  */
-export interface ActionModel {
-  type?: string;
+export interface ActionModel<T> {
+  type?: T;
   payload?: any;
-  errors?: any;
 }
 
 export interface ItemsStateModel {

@@ -10,7 +10,7 @@ import { ValidationErrors } from '@angular/forms';
 })
 export class ErrorsComponent implements OnInit {
 
-  errors = input<ValidationErrors | null>();
+  errors = input.required<ValidationErrors | null>();
 
   ngOnInit() { }
 }

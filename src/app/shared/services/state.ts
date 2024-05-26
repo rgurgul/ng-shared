@@ -1,6 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ActionModel } from '../types/store.models';
 
-export abstract class Store<T> {
+export abstract class State<T> {
   private state$: BehaviorSubject<T>;
 
   protected constructor(initialState: T) {
@@ -11,7 +12,9 @@ export abstract class Store<T> {
     return this.state$.asObservable();
   }
 
-  setState(nextState: T): void {
+  protected setState(nextState: T): void {
     this.state$.next(nextState);
   }
+
+  abstract dispatch({ payload, type }: ActionModel<any>): void;
 }

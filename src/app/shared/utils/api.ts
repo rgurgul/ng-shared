@@ -1,11 +1,7 @@
-const protocol = location.protocol.replace(/^[^:]+:\s*/, val => val === 'http:' ? 'ws:' : 'wss:');
+const protocol = location.protocol.replace(/^[^:]+:\s*/, (val) =>
+  val === 'http:' ? 'ws:' : 'wss:'
+);
 const host = window.location.host;
-
-export const environment = {
-  production: false,
-  gameUrl: '',
-  gameWsUrl: `${protocol}//${host}/`,
-};
 
 export class Api {
   private static DATA_BASE_END_POINT = 'https://api.debugger.pl/';
@@ -25,7 +21,7 @@ export class Api {
   static REGISTER_END_POINT = Api.AUTH_BASE_END_POINT + 'register/ajax';
 
   // WebSocket Game end-points
-  static GAME_PLAY = environment.gameWsUrl + 'play';
+  static GAME_PLAY = `${protocol}//${host}/play`;
   static GAME_GET_USER = 'wss://demo-game.debugger.pl/play';
-  static GAME_REGISTER_USER = environment.gameUrl + 'register-user';
+  static GAME_REGISTER_USER = 'register-user';
 }

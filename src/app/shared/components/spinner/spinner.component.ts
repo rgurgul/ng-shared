@@ -1,18 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, input, OnInit } from '@angular/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {
-  Router,
-  RouteConfigLoadStart,
   RouteConfigLoadEnd,
+  RouteConfigLoadStart,
+  Router,
 } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-spinner',
   templateUrl: './spinner.component.html',
-  standalone: true
+  standalone: true,
+  imports: [MatProgressSpinnerModule, CommonModule],
 })
 export class SpinnerComponent implements OnInit {
-  @Input() loading!: boolean | null;
+  loading = input.required<boolean>();
   routing$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private router: Router) {}

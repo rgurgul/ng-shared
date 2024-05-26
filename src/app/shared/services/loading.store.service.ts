@@ -1,21 +1,30 @@
 import { Injectable } from '@angular/core';
-import { of, iif } from 'rxjs';
+import { iif, of } from 'rxjs';
 import { delay, switchMap } from 'rxjs/operators';
-import { Store } from './store';
+import { State } from './state';
+import { ActionModel } from '../types/store.models';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class LoadingStateService extends Store<boolean> {
+export type types = 'loading';
 
+@Injectable({ providedIn: 'root' })
+export class CoreFacede extends State<boolean> {
   constructor() {
     super(false);
   }
 
-  setState(value: boolean) {
-    of(value)
-      .pipe(switchMap((val) => iif(() => val, of(true), of(false).pipe(delay(1000))))) //symulacja asynchroniczności kiedy false
-      .subscribe((val) => super.setState(val));
+  override dispatch({ payload, type }: ActionModel<types>): void {
+    switch (type) {
+      case 'loading':
+        of(payload)
+          .pipe(
+            switchMap((val) =>
+              iif(() => val, of(true), of(false).pipe(delay(1000)))
+            )
+          ) //symulacja asynchroniczności kiedy false
+          .subscribe((val) => super.setState(val));
+        break;
+      default:
+        break;
+    }
   }
-
 }

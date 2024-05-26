@@ -1,17 +1,17 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, inject, Input, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[appSetColor]'
+  selector: '[appSetColor]',
 })
 export class SetColorDirective {
+  renderer = inject(Renderer2);
+  element = inject(ElementRef);
 
   @Input() set appSetColor(value: any) {
-    this.renderer.setStyle(this.element.nativeElement, 'background-color', value);
-  };
-
-  constructor(
-    private renderer: Renderer2,
-    private element: ElementRef
-  ) { }
-
+    this.renderer.setStyle(
+      this.element.nativeElement,
+      'background-color',
+      value
+    );
+  }
 }

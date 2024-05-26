@@ -1,18 +1,14 @@
 import { Api } from '../utils/api';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { webSocket } from 'rxjs/webSocket';
 import { Subject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Message } from '../types/services.types';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class GameApiService {
-
+  http = inject(HttpClient);
   ws!: Subject<any>;
-
-  constructor(private http: HttpClient) { }
 
   register(username: string): Observable<any> {
     return this.http.post(
