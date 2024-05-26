@@ -1,0 +1,31 @@
+@for (error of errors() | keyvalue; track $index) {
+  <ng-container>
+    @switch (error.key) {
+      @case ('required') {
+        pole obowiązkowe
+      }
+      @case ('passwordRegEx') {
+        wyrażenie nie spełnia wymagań; 4-8 znaków, małe i duże litery oraz
+        cyfry
+      }
+      @case ('equalRequired') {
+        wyrażenia nie są zgodne
+      }
+      @case ('email') {
+        niepoprawny email
+      }
+      @case ('username exists') {
+        użytkownik już istnieje
+      }
+      @case ('dateShouldBeLessThan') {
+        data musi być mniejsza od {{error.value}}
+      }
+      @case ('atLeastOne') {
+        zaznacz min. jeden checkbox
+      }
+      @default {
+        nieznany błąd {{error.key}}
+      }
+    }
+  </ng-container>
+}
